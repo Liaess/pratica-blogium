@@ -14,14 +14,13 @@ export default function PostShowPage() {
   const [post, setPost] = useState(null);
   const history = useHistory();
 
+  function GetPost(){
+    const request = axios.get(`http://localhost:4000/posts/${postId}`);
+    request.then((res)=>{setPost(res.data);console.log(res.data)})
+}
+
   useEffect(() => {
-    setPost({
-      id: 1,
-      title: 'Hello World',
-      coverUrl: 'https://miro.medium.com/max/1024/1*OohqW5DGh9CQS4hLY5FXzA.png',
-      contentPreview: 'Esta é a estrutura de um post esperado pelo front-end',
-      content: 'Este é o conteúdo do post, o que realmente vai aparecer na página do post...'
-    })
+    GetPost();
   }, [postId]);
 
   function onEditButtonClick() {
