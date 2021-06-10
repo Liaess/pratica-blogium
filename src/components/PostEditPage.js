@@ -13,22 +13,30 @@ export default function PostEditPage() {
   const [isSaveButtonDisabled, setSaveButtonDisable] = useState(false);
   const history = useHistory();
 
-  useEffect(() => {
-    const post = {
-      id: 1,
-      title: 'Hello World',
-      coverUrl: 'https://miro.medium.com/max/1024/1*OohqW5DGh9CQS4hLY5FXzA.png',
-      contentPreview: 'Esta é a estrutura de um post esperado pelo front-end',
-      content: 'Este é o conteúdo do post, o que realmente vai aparecer na página do post...'
-    };
+  function getPost(){
+    const req = axios.get(`http://localhost:4000/posts/${postId}`);
+    req.then((res)=>{
+    setPost(res.data)
+    setTitle(res.data.title);
+    setCoverUrl(res.data.coverUrl);
+    setContent(res.data.content);
+  })
+}
 
-    setPost(post);
-    setTitle(post.title);
-    setCoverUrl(post.coverUrl);
-    setContent(post.content);
+  useEffect(() => {
+    getPost()
   }, [postId]);
 
-  function onPostSaveButtonClick() {}
+  function onPostSaveButtonClick() {
+    const body = {
+      id: postId,
+      title,
+      coverUrl,
+      content
+    }
+    const req = axios.put(`http://localhost:4000/posts/${postId}`, body);
+    req.then(history.push("/"))
+  }
 
   if (!post || !content) return <Spinner />;
 

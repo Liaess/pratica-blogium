@@ -15,6 +15,7 @@ export default function AddComment({ postId, getComments }) {
     }
     const req = axios.post(`http://localhost:4000/posts/${postId}/comments`, body);
     req.then(()=>getComments());
+    req.catch((err)=>alert(err.response.data))
   }
 
   function onAddCommentButtonClick() {

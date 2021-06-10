@@ -17,8 +17,9 @@ export default function NewStoryPage() {
       coverUrl,
       content,
     }
-    const request = axios.post('http://localhost:4000/posts', body);
-    request.then(()=> history.push("/"));
+    const req = axios.post('http://localhost:4000/posts', body);
+    req.then(()=> history.push("/"));
+    req.catch((err)=>alert(err.response.data))
   }
 
   return (
