@@ -23,7 +23,6 @@ export default function PostEditPage() {
     };
 
     setPost(post);
-
     setTitle(post.title);
     setCoverUrl(post.coverUrl);
     setContent(post.content);
